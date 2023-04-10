@@ -1,24 +1,16 @@
-import {
-  IsIn,
-  IsOptional,
-  IsString,
-  MaxLength,
-  MinLength,
-} from 'class-validator';
+import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 import { ErrorMessages } from '../ErrorMessages/Error-Messages';
-import { TodoStatusEnum } from '../models/todo.model';
 
-export class UpdateTodoDto {
+export class AddTodoDto {
   @IsString({ message: `le nom ${ErrorMessages.IsString}` })
-  @IsOptional()
+  @IsNotEmpty({ message: `le nom ${ErrorMessages.IsNotEmpty}` })
   @MinLength(3, { message: `le nom ${ErrorMessages.MinLength}` })
   @MaxLength(10, { message: `le nom ${ErrorMessages.MaxLength}` })
   name: string;
   @IsString({ message: `la description ${ErrorMessages.IsString}` })
   @MinLength(10, { message: `la description ${ErrorMessages.MinLength}` })
-  @IsOptional()
+  @IsNotEmpty({ message: `la description ${ErrorMessages.IsNotEmpty}` })
   description: string;
-  @IsOptional()
-  @IsIn([TodoStatusEnum.waiting, TodoStatusEnum.actif, TodoStatusEnum.done])
-  status: TodoStatusEnum;
+  // @IsNotEmpty()
+  createdBy: string;
 }
